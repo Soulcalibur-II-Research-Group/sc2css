@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sc2css", "sc2css.csproj", "{AB28D1F4-63FE-FF9D-0928-1030E82DE016}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB28D1F4-63FE-FF9D-0928-1030E82DE016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB28D1F4-63FE-FF9D-0928-1030E82DE016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB28D1F4-63FE-FF9D-0928-1030E82DE016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB28D1F4-63FE-FF9D-0928-1030E82DE016}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BA4ECF4-8A5C-459A-B8BA-1776D513A256}
+	EndGlobalSection
+EndGlobal
