@@ -54,7 +54,7 @@ internal class Helper
 	{
 		int num = br.ReadByte();
 		int num2 = ((num & 0x33) << 2) | ((num & 0xCC) >> 2);
-		return (byte)((uint)(((num2 & 0xF) << 4) | ((num2 & 0xF0) >> 4)) & 0xFFu);
+		return (byte)((((num2 & 0xF) << 4) | ((num2 & 0xF0) >> 4)) & 0xFF);
 	}
 
 	public static uint swap32(uint val)
@@ -131,7 +131,6 @@ internal class Helper
 
 	public static uint readUInt32(BinaryReader br, Endian e)
 	{
-		uint num = 0u;
 		if (e == Endian.Big)
 		{
 			return readUInt32B(br);
@@ -141,7 +140,6 @@ internal class Helper
 
 	public static int readInt32(BinaryReader br, Endian e)
 	{
-		int num = 0;
 		if (e == Endian.Big)
 		{
 			return readInt32B(br);
@@ -151,7 +149,6 @@ internal class Helper
 
 	public static ushort readUInt16(BinaryReader br, Endian e)
 	{
-		ushort num = 0;
 		if (e == Endian.Big)
 		{
 			return readUInt16B(br);
@@ -161,7 +158,6 @@ internal class Helper
 
 	public static short readInt16(BinaryReader br, Endian e)
 	{
-		short num = 0;
 		if (e == Endian.Big)
 		{
 			return readInt16B(br);
