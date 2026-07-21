@@ -36,9 +36,7 @@ public class WeaponMaster : Form
 		obj.PerformClick();
 		obj.Select();
 		_ = e.Button;
-		_ = 1048576;
 		_ = e.Button;
-		_ = 2097152;
 	}
 
 	private void slotxx_Click(object sender, EventArgs e)
@@ -75,7 +73,7 @@ public class WeaponMaster : Form
 			Button button = new Button();
 			short num3 = Css.wmEntries[i];
 			button.Text = $"{(Css.Human)num3}";
-			button.Name = $"cssBox{i.ToString()}";
+			button.Name = "cssBox" + i;
 			button.Size = new Size(64, 64);
 			button.Location = new Point(40 + num * 64, 40 + num2 * 64);
 			button.Click += slotxx_Click;

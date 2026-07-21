@@ -25,19 +25,13 @@ public class InfoEditor : Form
 
 	private Label cssIndexLabel;
 
-    public InfoEditor()
-    {
-        InitializeComponent();
+	public InfoEditor()
+	{
+		InitializeComponent();
+		comboBox1.SelectedIndex = 0;
+	}
 
-   
-        costumeCountBox.Maximum = 9999;
-        cssIndexBox.Maximum = 9999;
-
-        comboBox1.SelectedIndex = 0;
-    }
-
-
-    private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+	private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
 	{
 		entrySelected = false;
 		costumeCountBox.Value = Css.characterEntryCostumes[comboBox1.SelectedIndex];
@@ -89,7 +83,7 @@ public class InfoEditor : Form
 		this.comboBox1.FormattingEnabled = true;
 		this.comboBox1.Items.AddRange(new object[33]
 		{
-			"Dummy", "Mitsurugi", "SeungMina", "Taki", "Maxi", "Voldo", "Sophitia", "Dummy2", "Dummy3", "Dummy4",
+			"Dummy", "Mitsurugi", "SeungMina", "Taki", "Maxi", "Voldo", "Sophitia", "Siegfried", "Dummy3", "Dummy4",
 			"Dummy5", "Ivy", "Kilik", "Xianghua", "Dummy6", "Yoshimitsu", "Dummy7", "Nightmare", "Astaroth", "Inferno",
 			"Cervantes", "Raphael", "Talim", "Cassandra", "Charade", "Necrid", "YunSeong", "Link", "Heihachi", "Spawn",
 			"LizardMan", "Assassin", "Berserker"
@@ -118,7 +112,7 @@ public class InfoEditor : Form
 		this.label2.TabIndex = 3;
 		this.label2.Text = "Character";
 		this.cssIndexBox.Location = new System.Drawing.Point(117, 71);
-		this.cssIndexBox.Maximum = new decimal(new int[4] { 29, 0, 0, 0 });
+		this.cssIndexBox.Maximum = new decimal(new int[4] { 255, 0, 0, 0 });
 		this.cssIndexBox.Name = "cssIndexBox";
 		this.cssIndexBox.Size = new System.Drawing.Size(53, 20);
 		this.cssIndexBox.TabIndex = 4;

@@ -131,12 +131,13 @@ public class MainForm : Form
 
 	private OpenFileDialog xexOpenDialog;
 
-    private OpenFileDialog ps3OpenDialog;
+	private ToolStripMenuItem openXEXItem;
 
-    private ToolStripMenuItem openXEXItem;
-    private ToolStripMenuItem openPS3Item;
+	private OpenFileDialog ps3OpenDialog;
 
-    private ToolStripMenuItem weaponMasterCSSItem;
+	private ToolStripMenuItem openPS3Item;
+
+	private ToolStripMenuItem weaponMasterCSSItem;
 
 	public MainForm()
 	{
@@ -252,7 +253,7 @@ public class MainForm : Form
 		stageIdBox.Enabled = true;
 		characterBox.Enabled = true;
 		costumeNumBox.Enabled = true;
-		if (Css.console == Css.Console.GC || Css.console == Css.Console.XBOX)
+		if (Css.console == Css.Console.GC || Css.console == Css.Console.XBOX || Css.console == Css.Console.PS2)
 		{
 			centerCheckBox.Enabled = true;
 		}
@@ -411,6 +412,19 @@ public class MainForm : Form
 				centerCheckBox.Checked = false;
 			}
 		}
+		if (Css.console == Css.Console.PS2)
+		{
+			long offset2 = Css.xPosOff;
+			fileStream.Seek(offset2, SeekOrigin.Begin);
+			if (br.ReadByte() == 32)
+			{
+				centerCheckBox.Checked = true;
+			}
+			else
+			{
+				centerCheckBox.Checked = false;
+			}
+		}
 	}
 
 	private void OpenExecutable(Css.Console console)
@@ -558,6 +572,19 @@ public class MainForm : Form
 				Helper.writeUInt32(binaryWriter, 1124073472u, Css.endian);
 			}
 		}
+		if (Css.console == Css.Console.PS2)
+		{
+			long offset2 = Css.xPosOff;
+			fileStream.Seek(offset2, SeekOrigin.Begin);
+			if (centerCheckBox.Checked)
+			{
+				binaryWriter.Write((byte)32);
+			}
+			else
+			{
+				binaryWriter.Write((byte)0);
+			}
+		}
 		fileStream.Seek(Css.wmTableOffset, SeekOrigin.Begin);
 		for (int l = 0; l < 20; l++)
 		{
@@ -642,6 +669,15 @@ public class MainForm : Form
 		}
 	}
 
+	private void openPS3Item_Click(object sender, EventArgs e)
+	{
+		if (ps3OpenDialog.ShowDialog() == DialogResult.OK)
+		{
+			Css.filePath = ps3OpenDialog.FileName;
+			OpenExecutable(Css.Console.PS3);
+		}
+	}
+
 	private void openXEXItem_Click(object sender, EventArgs e)
 	{
 		if (xexOpenDialog.ShowDialog() == DialogResult.OK)
@@ -651,17 +687,7 @@ public class MainForm : Form
 		}
 	}
 
-    private void openPS3Item_Click(object sender, EventArgs e)
-    {
-        if (ps3OpenDialog.ShowDialog() == DialogResult.OK)
-        {
-            Css.filePath = ps3OpenDialog.FileName;
-            OpenExecutable(Css.Console.PS3);
-        }
-    }
-
-
-    private void weaponMasterCSSItem_Click(object sender, EventArgs e)
+	private void weaponMasterCSSItem_Click(object sender, EventArgs e)
 	{
 		new WeaponMaster().Show();
 	}
@@ -732,8 +758,9 @@ public class MainForm : Form
 		this.ps2OpenDialog = new System.Windows.Forms.OpenFileDialog();
 		this.xexOpenDialog = new System.Windows.Forms.OpenFileDialog();
 		this.openXEXItem = new System.Windows.Forms.ToolStripMenuItem();
-        this.openPS3Item = new System.Windows.Forms.ToolStripMenuItem();
-        this.toolStrip1.SuspendLayout();
+		this.ps3OpenDialog = new System.Windows.Forms.OpenFileDialog();
+		this.openPS3Item = new System.Windows.Forms.ToolStripMenuItem();
+		this.toolStrip1.SuspendLayout();
 		this.groupBox1.SuspendLayout();
 		((System.ComponentModel.ISupportInitialize)this.bgIconBox0).BeginInit();
 		((System.ComponentModel.ISupportInitialize)this.bgIconBox1).BeginInit();
@@ -770,8 +797,8 @@ public class MainForm : Form
 		this.fileButton.ShowDropDownArrow = false;
 		this.fileButton.Size = new System.Drawing.Size(29, 22);
 		this.fileButton.Text = "File";
-        this.openMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[5] { this.openGcnItem, this.openXboxItem, this.openPS2Item, this.openXEXItem, this.openPS3Item });
-        this.openMenu.Name = "openMenu";
+		this.openMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[5] { this.openGcnItem, this.openXboxItem, this.openPS2Item, this.openXEXItem, this.openPS3Item });
+		this.openMenu.Name = "openMenu";
 		this.openMenu.Size = new System.Drawing.Size(180, 22);
 		this.openMenu.Text = "Open";
 		this.openGcnItem.Name = "openGcnItem";
@@ -1048,7 +1075,7 @@ public class MainForm : Form
 		this.characterBox.FormattingEnabled = true;
 		this.characterBox.Items.AddRange(new object[35]
 		{
-			"Dummy", "Mitsurugi", "SeungMina", "Taki", "Maxi", "Voldo", "Sophitia", "Dummy2", "Dummy3", "Dummy4",
+			"Dummy", "Mitsurugi", "SeungMina", "Taki", "Maxi", "Voldo", "Sophitia", "Siegfried", "Dummy3", "Dummy4",
 			"Dummy5", "Ivy", "Kilik", "Xianghua", "Dummy6", "Yoshimitsu", "Dummy7", "Nightmare", "Astaroth", "Inferno",
 			"Cervantes", "Raphael", "Talim", "Cassandra", "Charade", "Necrid", "YunSeong", "Link", "Heihachi", "Spawn",
 			"LizardMan", "Assassin", "Berserker", "Random", "Null"
@@ -1091,17 +1118,16 @@ public class MainForm : Form
 		this.xbeOpenDialog.Filter = "XBE files|*.xbe|All files|*.*";
 		this.ps2OpenDialog.Filter = "PS2 ELF files|*.*";
 		this.xexOpenDialog.Filter = "Unencrypted XEX file|*.xex|All files|*.*";
-        this.ps3OpenDialog = new System.Windows.Forms.OpenFileDialog();
-        this.ps3OpenDialog.Filter = "PS3 ELF files|EBOOT.elf|All files|*.*";
-        this.openXEXItem.Name = "openXEXItem";
+		this.openXEXItem.Name = "openXEXItem";
 		this.openXEXItem.Size = new System.Drawing.Size(180, 22);
 		this.openXEXItem.Text = "Default.xex";
 		this.openXEXItem.Click += new System.EventHandler(openXEXItem_Click);
-        this.openPS3Item.Name = "openPS3Item";
-        this.openPS3Item.Size = new System.Drawing.Size(180, 22);
-        this.openPS3Item.Text = "EBOOT.elf";
-        this.openPS3Item.Click += new System.EventHandler(openPS3Item_Click);
-        base.AutoScaleDimensions = new System.Drawing.SizeF(6f, 13f);
+		this.ps3OpenDialog.Filter = "PS3 ELF files|*.elf|All files|*.*";
+		this.openPS3Item.Name = "openPS3Item";
+		this.openPS3Item.Size = new System.Drawing.Size(180, 22);
+		this.openPS3Item.Text = "EBOOT.elf";
+		this.openPS3Item.Click += new System.EventHandler(openPS3Item_Click);
+		base.AutoScaleDimensions = new System.Drawing.SizeF(6f, 13f);
 		base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 		this.BackColor = System.Drawing.SystemColors.Control;
 		base.ClientSize = new System.Drawing.Size(616, 481);
@@ -1143,4 +1169,3 @@ public class MainForm : Form
 		base.PerformLayout();
 	}
 }
-
